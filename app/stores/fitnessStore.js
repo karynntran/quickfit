@@ -1,12 +1,10 @@
-var dispatcher = require("../dispatcher");
+var dispatcher = require("../dispatcher"),
+	data = require("../data/fitnessdata");
+
 
 function FitnessStore() {
 	var listeners = [],
-		fitness = [
-			{exerciseType:"arms", exerciseName:"pushups"},
-    		{exerciseType:"legs", exerciseName:"squats"},
-    		{exerciseType:"abs", exerciseName:"crunches"}
-		];
+		fitness = data;
 
 	function getFitness(){
 		return fitness;
