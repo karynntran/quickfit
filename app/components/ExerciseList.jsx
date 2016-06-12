@@ -1,19 +1,19 @@
 var React = require("react"),
-	FitnessInfo = require("./FitnessInfo.jsx"),
-	AddFitness = require("./AddFitness.jsx");;
+	ExerciseInfo = require("./ExerciseInfo.jsx"),
+	AddExercise = require("./AddExercise.jsx");;
 
 module.exports = React.createClass({
 	render:function(){
 		return(
 			<div className="row">
 				<div className="col-md-6">
-					<AddFitness />
+					<AddExercise />
 				</div>
 				<div className="col-md-6">
 					{
-						this.props.fitness.map(function(s,index){
+						this.props.exercise.map(function(s,index){
 							return(
-								<FitnessInfo info={s} key={"fitness"+index} />
+								<ExerciseInfo info={s} key={"exercise"+index} />
 							)
 						})
 					}

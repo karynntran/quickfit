@@ -1,37 +1,37 @@
 var dispatcher = require("../dispatcher"),
-	fitnessService = require("../services/fitnessService");
+	exerciseService = require("../services/exerciseService");
 
 
-function FitnessStore() {
+function ExerciseStore() {
 	var listeners = [];
 
     function onChange(listener) {
-        getFitness(listener);
+        getExercise(listener);
         listeners.push(listener);
     }
     
-    function getFitness(cb){
-        fitnessService.getFitness().then(function (res) {
+    function getExercise(cb){
+        exerciseService.getExercise().then(function (res) {
             cb(res);
         });
     }
 
-    function addFitness(fitness) {
-        fitnessService.addFitness(fitness).then(function (res) {
+    function addExercise(exercise) {
+        exerciseService.addExercise(exercise).then(function (res) {
             console.log(res);
             triggerListeners();
         });
     }
 
-    function deleteFitness(fitness) {
-        fitnessService.deleteFitness(fitness).then(function (res) {
+    function deleteExercise(exercise) {
+        exerciseService.deleteExercise(exercise).then(function (res) {
             console.log(res);
             triggerListeners();
         });
     }
 
     function triggerListeners() {
-        getFitness(function (res) {
+        getExercise(function (res) {
             listeners.forEach(function (listener) {
                 listener(res);
             });
@@ -40,13 +40,13 @@ function FitnessStore() {
 
     dispatcher.register(function (payload) {
         var split = payload.type.split(":");
-        if (split[0] === "fitness") {
+        if (split[0] === "exercise") {
             switch (split[1]) {
-                case "addFitness":
-                    addFitness(payload.fitness);
+                case "addExercise":
+                    addExercise(payload.exercise);
                     break;
-                case "deleteFitness":
-                    deleteFitness(payload.fitness);
+                case "deleteExercise":
+                    deleteExercise(payload.exercise);
                     break;
             }
         }
@@ -57,4 +57,4 @@ function FitnessStore() {
     }
 }
 
-module.exports = FitnessStore();
+module.exports = ExerciseStore();

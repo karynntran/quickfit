@@ -1,5 +1,5 @@
 var React = require("react"),
-	actions = require("../actions/FitnessActions");
+	actions = require("../actions/ExerciseActions");
 
 module.exports = React.createClass({
 	getInitialState:function(){
@@ -8,9 +8,9 @@ module.exports = React.createClass({
 			exerciseName: ""
 		}
 	},
-	addFitness:function(e){
+	addExercise:function(e){
 		e.preventDefault();
-		actions.addFitness(this.state);
+		actions.addExercise(this.state);
 	},
 	handleInputChange:function(e){
 		e.preventDefault();
@@ -21,7 +21,7 @@ module.exports = React.createClass({
 		},
 		render:function(){
 			return(
-	            <form className="form" onSubmit={this.addFitness}>
+	            <form className="form" onSubmit={this.addExercise}>
 	                <div className="form-group">
 	                    <label className="control-label" htmlFor="type">Exercise Type:</label>
 	                    <input type="text" className="form-control" id="type" name="exerciseType" value={this.state.exerciseType} onChange={this.handleInputChange} placeholder="Exercise Type" />                    
