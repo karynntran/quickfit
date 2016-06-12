@@ -1,59 +1,60 @@
 var dispatcher = require("../dispatcher"),
-	data = require("../data/fitnessdata");
+	fitnessService = require("../services/fitnessService");
 
 
 function FitnessStore() {
-	var listeners = [],
-		fitness = data;
+	var listeners = [];
 
-	function getFitness(){
-		return fitness;
-	}
+    function onChange(listener) {
+        getFitness(listener);
+        listeners.push(listener);
+    }
+    
+    function getFitness(cb){
+        fitnessService.getFitness().then(function (res) {
+            cb(res);
+        });
+    }
 
-	function onChange(listener) {
-		listeners.push(listener);
-	}
+    function addFitness(fitness) {
+        fitnessService.addFitness(fitness).then(function (res) {
+            console.log(res);
+            triggerListeners();
+        });
+    }
 
-	function addFitness(fitnessEl){
-		fitness.push(fitnessEl);
-		triggerListeners();
-	}
+    function deleteFitness(fitness) {
+        fitnessService.deleteFitness(fitness).then(function (res) {
+            console.log(res);
+            triggerListeners();
+        });
+    }
 
-	function deleteFitness(fitnessEl){
-		var _index;
-		fitness.map(function (s, index) {
-			if (s.type === fitness.exerciseType) {
-				_index = index;
-			}
-		});
-		fitness.splice(_index, 1);
-		triggerListeners();
-	}
+    function triggerListeners() {
+        getFitness(function (res) {
+            listeners.forEach(function (listener) {
+                listener(res);
+            });
+        });
+    }
 
-	function triggerListeners(){
-		listeners.forEach(function(listener){
-			listener(fitness);
-		})
-	}
+    dispatcher.register(function (payload) {
+        var split = payload.type.split(":");
+        if (split[0] === "fitness") {
+            switch (split[1]) {
+                case "addFitness":
+                    addFitness(payload.fitness);
+                    break;
+                case "deleteFitness":
+                    deleteFitness(payload.fitness);
+                    break;
+            }
+        }
+    });
 
-	dispatcher.register(function (payload) {
-		var split = payload.type.split(":");
-		if (split[0] === "fitness") {
-			switch(split[1]) {
-				case "addFitness":
-					addFitness(payload.fitness);
-					break;
-				case "deleteFitness":
-					deleteFitness(payload.fitness);
-					break;
-			}
-		}
-	});
-
-	return {
-		getFitness:getFitness,
-		onChange: onChange
-	}
+    return {
+        onChange: onChange
+    }
 }
 
 module.exports = FitnessStore();

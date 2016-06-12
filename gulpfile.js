@@ -2,7 +2,8 @@ var gulp = require("gulp"),
 	browserify = require("browserify"),
 	reactify = require("reactify"),
 	source = require("vinyl-source-stream"),
-	nodemon = require("gulp-nodemon");
+	nodemon = require("gulp-nodemon"),
+  sass = require('gulp-sass');
 
 gulp.task("bundle", function () {
     return browserify({
@@ -15,9 +16,20 @@ gulp.task("bundle", function () {
 });
 
 gulp.task("copy", ["bundle"], function () {
-    return gulp.src(["app/index.html","app/style.css"])
+    return gulp.src(["app/index.html","app/css/style.css"])
         .pipe(gulp.dest("app/dist"));
 });
+
+gulp.task('sass', function () {
+  return gulp.src('app/sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('app/css'));
+});
+ 
+gulp.task('sass:watch', function () {
+  gulp.watch('app/sass/**/*.scss', ['sass']);
+});
+
 
 gulp.task("start", function () {
   nodemon({
@@ -27,6 +39,6 @@ gulp.task("start", function () {
   })
 })
 
-gulp.task("default", ["start", "copy"],function(){
+gulp.task("default", ["start", "copy", "sass:watch"],function(){
    console.log("Gulp complete..."); 
 });
