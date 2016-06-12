@@ -13,4 +13,5 @@ module.exports = {
 			type:"exercise:deleteExercise"
 		});
 	}
+	
 }

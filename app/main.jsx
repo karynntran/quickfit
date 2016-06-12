@@ -6,17 +6,17 @@ var React = require("react"),
 		_exercise = exercise;
 		getExerciseList();
 	},
-	ExerciseList = require("./components/ExerciseList.jsx"),
+	ExerciseList = require("./components/ExerciseList.jsx"),		
 	_exercise=[];
-exerciseStore.onChange(getExerciseCallback);
+	exerciseStore.onChange(getExerciseCallback);
 
 function init(){
 	ReactDOM.render(<MainLayout/>, document.getElementById("container"));
 }
 
-
 function getExerciseList(){
-    ReactDOM.render(<ExerciseList exercise={_exercise} />, document.getElementById("exlisttest"));    
+    // ReactDOM.render(<ExerciseList exercise={_exercise} />, document.getElementById("exlisttest"));    
+    // ExerciseList.render();
 };
 
 init();

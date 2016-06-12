@@ -3,7 +3,10 @@ var gulp = require("gulp"),
 	reactify = require("reactify"),
 	source = require("vinyl-source-stream"),
 	nodemon = require("gulp-nodemon"),
-  sass = require('gulp-sass');
+  sass = require('gulp-sass'),
+  tinylr = require('tiny-lr'),
+  server = tinylr(),
+  livereload = require('gulp-livereload');
 
 gulp.task("bundle", function () {
     return browserify({
@@ -17,18 +20,27 @@ gulp.task("bundle", function () {
 
 gulp.task("copy", ["bundle"], function () {
     return gulp.src(["app/index.html","app/css/style.css"])
-        .pipe(gulp.dest("app/dist"));
+        .pipe(gulp.dest("app/dist"))
+        .pipe( livereload( server ));
 });
 
 gulp.task('sass', function () {
   return gulp.src('app/sass/**/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('app/css'));
+    .pipe(gulp.dest('app/css'))
+    .pipe( livereload( server ));
 });
  
-gulp.task('sass:watch', function () {
+gulp.task('watch', function(){
+    server.listen(35729, function (err) {
+      if (err) {
+        return console.log(err);
+      }
   gulp.watch('app/sass/**/*.scss', ['sass']);
+
+  });
 });
+
 
 
 gulp.task("start", function () {
@@ -39,6 +51,6 @@ gulp.task("start", function () {
   })
 })
 
-gulp.task("default", ["start", "copy", "sass:watch"],function(){
+gulp.task("default", ["start", "copy", "watch"],function(){
    console.log("Gulp complete..."); 
 });
