@@ -1,14 +1,11 @@
 var React = require("react"),
 	ExerciseInfo = require("./ExerciseInfo.jsx"),
-	AddExercise = require("./AddExercise.jsx");;
+	AddExercise = require("./AddExercise.jsx");
 
 module.exports = React.createClass({
 	render:function(){
 		return(
 			<div className="row">
-				<div className="col-md-6">
-					<AddExercise />
-				</div>
 				<div className="col-md-6">
 					{
 						this.props.exercise.map(function(s,index){
