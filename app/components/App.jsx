@@ -1,10 +1,27 @@
 var React = require("react"),
+	$ = require("jquery"),
 	ExerciseList = require("./ExerciseList.jsx"),
 	AddExercise = require("./AddExercise.jsx"),
 	ExerciseList = require("../components/ExerciseList.jsx"),
 	_exercise=[];
 
 module.exports = React.createClass({
+	getInitialState: function() {
+		return {
+			dataSet: null,
+		};
+	},
+	componentDidMount: function() {
+		this.serverRequest = $.get('http://localhost:7777/api/exercise', function (result) {
+		    this.setState({
+				dataSet: result
+		    });
+		}.bind(this));
+	},
+	// componentWillUnmount: function() {
+	// 	this.serverRequest.abort();
+	// },
+
 	render:function(){
 		return(
 			<div className="row">
@@ -21,8 +38,8 @@ module.exports = React.createClass({
 					<h1>See all exercises here</h1>
 					<AddExercise />
 				</div>
-				<div className="col-md-6" id="exlisttest">
-					<ExerciseList exercise={_exercise}/>
+				<div className="col-md-6" id="exerciselist">
+					<ExerciseList exercise={this.state.dataSet}/>
 				</div>
 			</div>
 		)

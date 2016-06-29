@@ -53,7 +53,7 @@ function ExerciseStore() {
     });
 
     return {
-        onChange: onChange
+        onChange: onChange,
     }
 }
 
