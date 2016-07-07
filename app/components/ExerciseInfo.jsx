@@ -2,8 +2,17 @@ var React = require("react"),
 	actions = require("../actions/ExerciseActions");;
 
 module.exports = React.createClass({
-    deleteExercise: function(e){
-        e.preventDefault();
+    getInitialState:function(){
+        return {
+            info: this.props.initialInfo
+        }
+    },
+    componentWillReceiveProps: function(nextProps) {
+        if (nextProps.exerciseName !== this.state.exerciseName) {
+            this.setState({ info: this.props.info });
+        }
+    },
+    deleteExercise: function(){
         actions.deleteExercise(this.props.info);
     },
     render:function(){

@@ -4,11 +4,15 @@ var React = require("react"),
 module.exports = React.createClass({
 	getInitialState:function(){
 		return {
-			dataSet: ''
+			exercise: this.props.initialExercise
 		}
 	},
-	addExercise:function(e){
-		e.preventDefault();
+	componentWillReceiveProps: function(nextProps) {
+		if (nextProps.exerciseName !== this.state.exerciseName) {
+			this.setState({ exercise: nextProps.exerciseName });
+		}
+	},
+	addExercise:function(){
 		actions.addExercise(this.state);
 	},
 	handleInputChange:function(e){

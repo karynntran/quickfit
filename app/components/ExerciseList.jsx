@@ -5,7 +5,7 @@ var React = require("react"),
 module.exports = React.createClass({
 	getInitialState: function() {
 		return {
-			exercise: null
+			exercise: this.props.exercise
 		};
 	},
 	render:function(){
