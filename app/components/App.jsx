@@ -29,22 +29,24 @@ module.exports = React.createClass({
 	render:function(){
 		return(
 			<div className="row">
-				<div className="col-md-6">
-					<h1>Select your exercise</h1>
+				<section className="col-md-6">
+					<div classID="select-exercise" className="section-header">Select your exercise</div>
 					<ul className="exercise-categories">
 						<li>Arms</li>
 						<li>Legs</li>
 						<li>Abs</li>
 					</ul>
-				</div>
+				</section>
 
-				<div className="col-md-6">
-					<h1>See all exercises here</h1>
+				<section className="col-md-6">
+					<div classID="add-exercises" className="section-header">Add Exercise</div>
 					<AddExercise exercise={this.state.dataSet}/>
-				</div>
-				<div className="col-md-6" id="exerciselist">
+				</section>
+
+				<section className="col-md-6">
+					<div classID="all-exercises" className="section-header" id="exerciselist">All Exercises</div>
 					<ExerciseList exercise={this.state.dataSet}/>
-				</div>
+				</section>
 			</div>
 		)
 	}
