@@ -1,5 +1,6 @@
 var dispatcher = require("../dispatcher"),
-	exerciseService = require("../services/exerciseService");
+	exerciseService = require("../services/exerciseService"),
+    ExerciseList = require("../components/ExerciseList.jsx");
 
 
 function ExerciseStore() {
@@ -8,6 +9,7 @@ function ExerciseStore() {
     function onChange(listener) {
         getExercise(listener);
         listeners.push(listener);
+        this.setState;
     }
     
     function getExercise(cb){

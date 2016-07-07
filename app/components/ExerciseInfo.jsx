@@ -2,17 +2,11 @@ var React = require("react"),
 	actions = require("../actions/ExerciseActions");;
 
 module.exports = React.createClass({
-    getInitialState: function() {
-        return {
-            info: null
-        };
-    },
     deleteExercise: function(e){
         e.preventDefault();
         actions.deleteExercise(this.props.info);
     },
     render:function(){
-        console.log(this.props.info);
         return(
             <div className="panel panel-default">
                 <div className="panel-heading">

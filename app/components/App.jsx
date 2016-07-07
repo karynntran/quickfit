@@ -18,6 +18,10 @@ module.exports = React.createClass({
 		    });
 		}.bind(this));
 	},
+	// shouldComponentUpdate: function(nextProps, nextState) {
+ //  		return nextProps
+ //  		// return nextProps.id !== this.props.id;
+	// },
 	// componentWillUnmount: function() {
 	// 	this.serverRequest.abort();
 	// },
@@ -36,7 +40,7 @@ module.exports = React.createClass({
 
 				<div className="col-md-6">
 					<h1>See all exercises here</h1>
-					<AddExercise />
+					<AddExercise exercise={this.state.dataSet}/>
 				</div>
 				<div className="col-md-6" id="exerciselist">
 					<ExerciseList exercise={this.state.dataSet}/>
