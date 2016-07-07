@@ -8,9 +8,7 @@ module.exports = React.createClass({
         }
     },
     componentWillReceiveProps: function(nextProps) {
-        if (nextProps.exerciseName !== this.state.exerciseName) {
-            this.setState({ info: this.props.info });
-        }
+        this.setState(this.state);
     },
     deleteExercise: function(){
         actions.deleteExercise(this.props.info);

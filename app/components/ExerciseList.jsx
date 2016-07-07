@@ -8,6 +8,9 @@ module.exports = React.createClass({
 			exercise: this.props.exercise
 		};
 	},
+	// componentWillReceiveProps: function(nextProps) {
+	// 	this.setState({ exercise: nextProps });
+	// },
 	render:function(){
 		if (this.props.exercise) {
 			return(
